@@ -1,0 +1,19 @@
+{
+  "name": "images-lib",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev:frontend": "cd frontend && bun run dev",
+    "dev:backend": "cd backend && bun start",
+    "build:frontend": "cd frontend && bun run build"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "vite": "^6.0.6"
+  }
+}
