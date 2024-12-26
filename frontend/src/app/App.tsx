@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <Button view='action' size='l'>
-        CLICK
+        CLICK!!!
       </Button>
     </>
   );
