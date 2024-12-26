@@ -1,13 +1,16 @@
-import { Button } from '@gravity-ui/uikit';
-import './styles/index.css';
+import Home from '../screens/Home/Home';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MainRoot } from './styles/MainRoot';
 
 function App() {
   return (
-    <>
-      <Button view='action' size='l'>
-        CLICK!!!
-      </Button>
-    </>
+    <BrowserRouter>
+      <MainRoot>
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </MainRoot>
+    </BrowserRouter>
   );
 }
 
