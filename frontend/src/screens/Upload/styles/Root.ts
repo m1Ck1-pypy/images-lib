@@ -1,12 +1,10 @@
 import { styled } from 'styled-components';
 import { Box } from '@gravity-ui/uikit';
 
-export const MainRoot = styled(Box)`
-  position: relative;
+export const Root = styled(Box)`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
-
-  overflow: hidden;
 `;
