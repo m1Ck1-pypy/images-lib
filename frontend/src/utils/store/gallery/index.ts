@@ -3,7 +3,8 @@ import { create } from 'zustand';
 import exampleImg1 from '@/assets/images/00006-1889027936.jpeg';
 import exampleImg2 from '@/assets/images/01-min_aUP6.jpg';
 
-const imageArray = Array.from({ length: 20 }, (_, index) => `${index % 2 ? exampleImg1 : exampleImg2}`);
+// const imageArray = Array.from({ length: 2 }, (_, index) => `${index % 2 ? exampleImg1 : exampleImg2}`);
+const imageArray = [exampleImg1, exampleImg2];
 
 type Store = {
   activeImageIndex: number | null;
@@ -15,6 +16,7 @@ type Actions = {
   resetIndex: () => void;
   incrementIndex: () => void;
   decrementIndex: () => void;
+  setImage: (image: string) => void;
 };
 
 export const useGalleryStore = create<Store & Actions>((set, get) => ({
@@ -44,4 +46,6 @@ export const useGalleryStore = create<Store & Actions>((set, get) => ({
     }
     set({ activeImageIndex: activeImageIndex - 1 });
   },
+
+  setImage: (image: string) => set({ allImages: [image, ...get().allImages] }),
 }));

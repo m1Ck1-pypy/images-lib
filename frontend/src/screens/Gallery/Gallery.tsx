@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Carusel from './Carusel/Carusel';
 import { Container } from './styles/Container';
 import { GridWrapper } from './styles/GridWrapper';
@@ -5,6 +6,7 @@ import { Image } from './styles/Image';
 import { Root } from './styles/Root';
 
 import { useGalleryStore } from '@/utils/store/gallery';
+import { Text } from '@gravity-ui/uikit';
 
 const Gallery = () => {
   const activeIndex = useGalleryStore((state) => state.activeImageIndex);
@@ -21,15 +23,23 @@ const Gallery = () => {
     resetIndex();
   };
 
+  useEffect(() => {
+    return () => resetIndex();
+  }, []);
+
   return (
     <Root onClick={handleResetActiveIndex}>
       {activeIndex === null && (
         <Container>
-          <GridWrapper>
-            {imageArray.map((item, index) => (
-              <Image key={index} image={item} onClick={(e) => handleImageClick(e, index)} />
-            ))}
-          </GridWrapper>
+          {imageArray.length ? (
+            <GridWrapper>
+              {imageArray.map((item, index) => (
+                <Image key={index} image={item} onClick={(e) => handleImageClick(e, index)} />
+              ))}
+            </GridWrapper>
+          ) : (
+            <Text variant='display-1'>Галерея пуста</Text>
+          )}
         </Container>
       )}
 
