@@ -47,9 +47,9 @@ const Carusel = ({ image }: Props) => {
     }
   };
 
-  const initial = { opacity: 1, x: move === 'right' ? -100 : 100 };
+  const initial = { opacity: 0.5, x: move === 'right' ? -100 : 100 };
   const animate = { opacity: 1, x: 0 };
-  const exit = { opacity: 1, x: move === 'right' ? 100 : -100 };
+  const exit = { opacity: 0.5, x: move === 'right' ? 100 : -100 };
 
   const constraintsRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +57,7 @@ const Carusel = ({ image }: Props) => {
     <Root>
       <AnimatePresence mode='wait'>
         <Arrow arrow={LeftArrow} onClick={(e) => handlePrevImage(e)} />
-        <Wrapper ref={constraintsRef} onClick={(e) => e.stopPropagation()}>
+        <Wrapper ref={constraintsRef} onClick={(e: any) => e.stopPropagation()}>
           <Image
             key={`${image}-${index}-blur`}
             initial={{ opacity: 1 }}

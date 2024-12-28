@@ -1,14 +1,13 @@
 import { styled } from 'styled-components';
-
 import { Box } from '@gravity-ui/uikit';
 
 export const Container = styled(Box)`
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 30%;
-  height: 65%;
-  background-color: rgba(18, 58, 48, 0.2);
-  border-radius: 1rem;
-  box-shadow: 0 0 20px 5px rgba(227, 226, 226, 0.35);
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  padding: 2rem 6rem;
 `;
