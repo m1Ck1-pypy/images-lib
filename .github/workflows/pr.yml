@@ -1,9 +1,6 @@
-name: Build and Deploy Main 🚀
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on:
-  push:
-    branches:
-      - main
+name: Build and Deploy PR 🚀
+run-name: ${{ github.actor }} Pull Request 🚀
+on: [pull_request]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
