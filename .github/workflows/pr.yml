@@ -22,5 +22,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Lint
-      - run: bun install
       - run: bun lint
