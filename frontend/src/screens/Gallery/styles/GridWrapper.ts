@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { Box } from '@gravity-ui/uikit';
+import { styled } from 'styled-components';
 
 export const GridWrapper = styled(Box)`
   display: grid;

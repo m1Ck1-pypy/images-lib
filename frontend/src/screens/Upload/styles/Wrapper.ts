@@ -1,6 +1,5 @@
-import { css, styled } from 'styled-components';
-
 import { Box } from '@gravity-ui/uikit';
+import { css, styled } from 'styled-components';
 
 type Props = {
   isFile?: boolean;

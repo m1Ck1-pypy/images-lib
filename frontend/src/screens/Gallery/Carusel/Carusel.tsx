@@ -1,12 +1,14 @@
+import { AnimatePresence, PanInfo } from 'framer-motion';
+import { useRef, useState } from 'react';
+
+import LeftArrow from '@/assets/leftArrow.png';
+import RightArrow from '@/assets/rightArrow.png';
 import { useGalleryStore } from '@/utils/store/gallery';
+
 import { Arrow } from './styles/Arrow';
 import { Image } from './styles/Image';
 import { Root } from './styles/Root';
-import LeftArrow from '@/assets/leftArrow.png';
-import RightArrow from '@/assets/rightArrow.png';
 import Wrapper from './styles/Wrapper';
-import { AnimatePresence, PanInfo } from 'framer-motion';
-import { useRef, useState } from 'react';
 
 type Props = {
   image: string;

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
-import exampleImg1 from '@/assets/images/00006-1889027936.jpeg';
 import exampleImg2 from '@/assets/images/01-min_aUP6.jpg';
+import exampleImg1 from '@/assets/images/00006-1889027936.jpeg';
 
 // const imageArray = Array.from({ length: 2 }, (_, index) => `${index % 2 ? exampleImg1 : exampleImg2}`);
 const imageArray = [exampleImg1, exampleImg2];

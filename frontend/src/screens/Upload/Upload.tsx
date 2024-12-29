@@ -1,10 +1,11 @@
 import { Text } from '@gravity-ui/uikit';
+import { useCallback, useRef, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+
 import { Container } from './styles/Container';
 import { Root } from './styles/Root';
-import { useCallback, useRef, useState } from 'react';
 import { Wrapper } from './styles/Wrapper';
 import UploadImage from './UploadImage/UploadImage';
-import { useDropzone } from 'react-dropzone';
 
 const Upload = () => {
   const fileRef = useRef<HTMLInputElement>(null);

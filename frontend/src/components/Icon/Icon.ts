@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { Icon as GIcon } from '@gravity-ui/uikit';
+import { styled } from 'styled-components';
 
 type Props = {
   isOpen: boolean;

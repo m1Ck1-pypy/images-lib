@@ -1,11 +1,12 @@
-import { Root } from './styles/Root';
+import { Box } from '@gravity-ui/uikit';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { Icon } from '../Icon/Icon';
+import { CloudIcon } from './MenuIcons/CloudIcon';
 import { CommunityIcon } from './MenuIcons/Community';
 import { SettingsIcon } from './MenuIcons/Settings';
-import { Icon } from '../Icon/Icon';
-import { useEffect, useState } from 'react';
-import { Box } from '@gravity-ui/uikit';
-import { CloudIcon } from './MenuIcons/CloudIcon';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Root } from './styles/Root';
 
 const iconsArray = [
   { data: CommunityIcon, index: 0, path: '/' },
@@ -54,7 +55,7 @@ const Menu = () => {
 
   useEffect(() => {
     setActiveIndex(defaultActiveIndex[location.pathname]);
-  }, []);
+  }, [location.pathname]);
 
   return (
     <Root isOpen={isOpen}>
