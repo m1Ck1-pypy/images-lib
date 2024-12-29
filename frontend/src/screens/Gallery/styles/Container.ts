@@ -1,6 +1,5 @@
-import { styled } from 'styled-components';
-
 import { Box } from '@gravity-ui/uikit';
+import { styled } from 'styled-components';
 
 export const Container = styled(Box)`
   display: flex;

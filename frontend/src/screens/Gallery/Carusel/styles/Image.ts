@@ -1,7 +1,6 @@
+import { Box } from '@gravity-ui/uikit';
 import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
-
-import { Box } from '@gravity-ui/uikit';
 
 type Props = {
   image: string;

@@ -1,12 +1,13 @@
+import { Text } from '@gravity-ui/uikit';
 import { useEffect } from 'react';
+
+import { useGalleryStore } from '@/utils/store/gallery';
+
 import Carusel from './Carusel/Carusel';
 import { Container } from './styles/Container';
 import { GridWrapper } from './styles/GridWrapper';
 import { Image } from './styles/Image';
 import { Root } from './styles/Root';
-
-import { useGalleryStore } from '@/utils/store/gallery';
-import { Text } from '@gravity-ui/uikit';
 
 const Gallery = () => {
   const activeIndex = useGalleryStore((state) => state.activeImageIndex);
@@ -25,7 +26,7 @@ const Gallery = () => {
 
   useEffect(() => {
     return () => resetIndex();
-  }, []);
+  }, [resetIndex]);
 
   return (
     <Root onClick={handleResetActiveIndex}>

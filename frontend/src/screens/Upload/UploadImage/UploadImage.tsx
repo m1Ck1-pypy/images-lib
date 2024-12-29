@@ -1,12 +1,13 @@
-import { ImageWrapper } from './styles/ImageWrapper';
-import { Image } from './styles/Image';
-import { useRef } from 'react';
-import { Button, Icon, Tooltip } from '@gravity-ui/uikit';
-import { Actions } from './styles/Actions';
-
 import { ArrowsRotateLeft, FloppyDisk, Xmark } from '@gravity-ui/icons';
-import { useGalleryStore } from '@/utils/store/gallery';
+import { Button, Icon, Tooltip } from '@gravity-ui/uikit';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { useGalleryStore } from '@/utils/store/gallery';
+
+import { Actions } from './styles/Actions';
+import { Image } from './styles/Image';
+import { ImageWrapper } from './styles/ImageWrapper';
 
 type Props = {
   file: File;

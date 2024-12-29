@@ -5,7 +5,7 @@ on:
     branches:
       - main
 jobs:
-  Explore-GitHub-Actions:
+  changes:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -19,3 +19,11 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+
+  lint:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint
+      - run: bun install
+      - run: bun lint
