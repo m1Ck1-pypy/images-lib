@@ -2,6 +2,7 @@ import { ArrowsRotateLeft, FloppyDisk, Xmark } from '@gravity-ui/icons';
 import { Button, Icon, Tooltip } from '@gravity-ui/uikit';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v7 } from 'uuid';
 
 import { useGalleryStore } from '@/utils/store/gallery';
 
@@ -19,11 +20,17 @@ const UploadImage = ({ file, onUploadFile, onClose }: Props) => {
   const navigate = useNavigate();
   const ref = useRef<HTMLImageElement>(null);
   const setAllImage = useGalleryStore((state) => state.setImage);
+  const createImage = useGalleryStore((state) => state.createImage);
 
-  const handleSaveImage = () => {
-    setAllImage(URL.createObjectURL(file));
+  const handleSaveImage = async () => {
+    setAllImage({ id: v7(), image: URL.createObjectURL(file) });
     onClose();
     navigate('/');
+
+    const formData = new FormData();
+    formData.append('file', file!);
+    formData.append('image_name', file!.name);
+    await createImage(formData);
   };
 
   return (

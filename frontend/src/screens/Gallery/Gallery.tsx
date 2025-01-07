@@ -14,6 +14,7 @@ const Gallery = () => {
   const imageArray = useGalleryStore((state) => state.allImages);
   const setActiveImageIndex = useGalleryStore((state) => state.setActiveImageIndex);
   const resetIndex = useGalleryStore((state) => state.resetIndex);
+  const fetchAllImages = useGalleryStore((state) => state.fetchAllImages);
 
   const handleImageClick = (e: any, index: number) => {
     e.stopPropagation();
@@ -25,6 +26,8 @@ const Gallery = () => {
   };
 
   useEffect(() => {
+    fetchAllImages();
+
     return () => resetIndex();
   }, [resetIndex]);
 
@@ -35,7 +38,7 @@ const Gallery = () => {
           {imageArray.length ? (
             <GridWrapper>
               {imageArray.map((item, index) => (
-                <Image key={index} image={item} onClick={(e) => handleImageClick(e, index)} />
+                <Image key={index} image={item.image} onClick={(e) => handleImageClick(e, index)} />
               ))}
             </GridWrapper>
           ) : (
@@ -44,7 +47,7 @@ const Gallery = () => {
         </Container>
       )}
 
-      {activeIndex !== null && <Carusel image={imageArray[activeIndex]} />}
+      {activeIndex !== null && <Carusel image={imageArray[activeIndex].image} id={imageArray[activeIndex].id} />}
     </Root>
   );
 };
