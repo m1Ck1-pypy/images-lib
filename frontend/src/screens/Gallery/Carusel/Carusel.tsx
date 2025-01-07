@@ -11,6 +11,7 @@ import { Root } from './styles/Root';
 import Wrapper from './styles/Wrapper';
 
 type Props = {
+  id: string;
   image: string;
 };
 
@@ -22,7 +23,7 @@ const transition = {
 
 type Move = 'left' | 'right';
 
-const Carusel = ({ image }: Props) => {
+const Carusel = ({ image, id }: Props) => {
   const incremetImageIndex = useGalleryStore((state) => state.incrementIndex);
   const decrementImageIndex = useGalleryStore((state) => state.decrementIndex);
   const index = useGalleryStore((state) => state.activeImageIndex) || 0;
@@ -57,11 +58,11 @@ const Carusel = ({ image }: Props) => {
 
   return (
     <Root>
-      <AnimatePresence mode='wait'>
+      <AnimatePresence>
         <Arrow arrow={LeftArrow} onClick={(e) => handlePrevImage(e)} />
         <Wrapper ref={constraintsRef} onClick={(e: any) => e.stopPropagation()}>
           <Image
-            key={`${image}-${index}-blur`}
+            key={`${id}-${index}-blur`}
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 1 }}
@@ -71,7 +72,7 @@ const Carusel = ({ image }: Props) => {
             size='cover'
           />
           <Image
-            key={`${image}-${index}`}
+            key={`${id}-${index}`}
             initial={initial}
             animate={animate}
             exit={exit}

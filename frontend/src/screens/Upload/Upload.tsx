@@ -17,7 +17,7 @@ const Upload = () => {
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
@@ -29,33 +29,6 @@ const Upload = () => {
     if (selectedFile) {
       setFile(selectedFile);
     }
-
-    // acceptedFiles.forEach((file) => {
-    //   const reader = new FileReader();
-
-    //   reader.onabort = () => console.log('file reading was aborted');
-    //   reader.onerror = () => console.log('file reading has failed');
-    //   reader.onload = () => {
-    //     // Do whatever you want with the file contents
-    //     const binaryStr = reader.result;
-    //     console.log(binaryStr);
-    //   };
-    //   reader.readAsArrayBuffer(file);
-    // });
-    // try {
-    // for (const file of acceptedFiles) {
-    // const formData = new FormData();
-    // formData.append('file', file);
-
-    // const response = await axios.post('http://localhost:3000/upload', formData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    // });
-    // }
-    // } catch (error) {
-    //   console.error('Error uploading file:', error);
-    // }
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });

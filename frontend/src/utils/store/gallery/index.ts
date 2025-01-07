@@ -1,14 +1,17 @@
 import { create } from 'zustand';
 
-import exampleImg2 from '@/assets/images/01-min_aUP6.jpg';
-import exampleImg1 from '@/assets/images/00006-1889027936.jpeg';
+// import exampleImg2 from '@/assets/images/01-min_aUP6.jpg';
+// import exampleImg1 from '@/assets/images/00006-1889027936.jpeg';
+import api from '@/utils/api';
 
 // const imageArray = Array.from({ length: 2 }, (_, index) => `${index % 2 ? exampleImg1 : exampleImg2}`);
-const imageArray = [exampleImg1, exampleImg2];
+// const imageArray = [exampleImg1, exampleImg2];
+
+type ImageType = { id: string; image: string };
 
 type Store = {
   activeImageIndex: number | null;
-  allImages: string[];
+  allImages: ImageType[];
 };
 
 type Actions = {
@@ -16,12 +19,15 @@ type Actions = {
   resetIndex: () => void;
   incrementIndex: () => void;
   decrementIndex: () => void;
-  setImage: (image: string) => void;
+  setImage: (image: ImageType) => void;
+
+  fetchAllImages: () => Promise<void>;
+  createImage: (data: FormData) => Promise<void>;
 };
 
 export const useGalleryStore = create<Store & Actions>((set, get) => ({
   activeImageIndex: null,
-  allImages: imageArray,
+  allImages: [],
 
   setActiveImageIndex: (activeImageIndex) => set({ activeImageIndex }),
   resetIndex: () => set({ activeImageIndex: null }),
@@ -47,5 +53,24 @@ export const useGalleryStore = create<Store & Actions>((set, get) => ({
     set({ activeImageIndex: activeImageIndex - 1 });
   },
 
-  setImage: (image: string) => set({ allImages: [image, ...get().allImages] }),
+  setImage: (image) => set({ allImages: [image, ...get().allImages] }),
+
+  fetchAllImages: async () => {
+    try {
+      const result = await api.posts.getAll();
+      set({ allImages: result });
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  createImage: async (data) => {
+    try {
+      await api.posts.create(data);
+
+      get().fetchAllImages();
+    } catch (error) {
+      console.error(error);
+    }
+  },
 }));
