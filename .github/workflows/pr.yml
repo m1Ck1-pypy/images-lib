@@ -23,6 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install modules
-        run: yarn
+        run: bun install
       - name: Run ESLint
-        run: yarn lint
+        run: bun lint
