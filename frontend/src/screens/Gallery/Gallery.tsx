@@ -42,7 +42,9 @@ const Gallery = () => {
               ))}
             </GridWrapper>
           ) : (
-            <Text variant='display-1'>Галерея пуста</Text>
+            <Text variant='display-1' style={{ marginTop: '2rem' }}>
+              Галерея пуста
+            </Text>
           )}
         </Container>
       )}

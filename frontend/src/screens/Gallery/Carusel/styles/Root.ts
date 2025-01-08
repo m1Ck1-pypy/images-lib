@@ -5,7 +5,12 @@ export const Root = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10rem;
+  gap: 3rem;
   width: 100%;
   height: 100%;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;

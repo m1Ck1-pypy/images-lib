@@ -1,3 +1,4 @@
+import { useViewportSize } from '@gravity-ui/uikit';
 import { AnimatePresence, PanInfo } from 'framer-motion';
 import { useRef, useState } from 'react';
 
@@ -24,13 +25,15 @@ const transition = {
 type Move = 'left' | 'right';
 
 const Carusel = ({ image, id }: Props) => {
+  const width = useViewportSize().width || 0;
+
   const incremetImageIndex = useGalleryStore((state) => state.incrementIndex);
   const decrementImageIndex = useGalleryStore((state) => state.decrementIndex);
   const index = useGalleryStore((state) => state.activeImageIndex) || 0;
 
   const [move, setMove] = useState<Move>('left');
 
-  const handleNextImage = (e: any) => {
+  const handleNextImage = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     incremetImageIndex();
     setMove('left');
@@ -42,7 +45,7 @@ const Carusel = ({ image, id }: Props) => {
     setMove('right');
   };
 
-  const handleDragEnd = (event: MouseEvent | TouchEvent, info: PanInfo) => {
+  const handleDragEnd = (event: React.MouseEvent<HTMLDivElement>, info: PanInfo) => {
     if (info.offset.x < -50) {
       handleNextImage(event);
     } else if (info.offset.x > 50) {
@@ -56,10 +59,12 @@ const Carusel = ({ image, id }: Props) => {
 
   const constraintsRef = useRef<HTMLDivElement>(null);
 
+  const isMobileView = width < 768;
+
   return (
-    <Root>
-      <AnimatePresence>
-        <Arrow arrow={LeftArrow} onClick={(e) => handlePrevImage(e)} />
+    <AnimatePresence>
+      <Root>
+        {!isMobileView && <Arrow arrow={LeftArrow} onClick={(e) => handlePrevImage(e)} />}
         <Wrapper ref={constraintsRef} onClick={(e: any) => e.stopPropagation()}>
           <Image
             key={`${id}-${index}-blur`}
@@ -85,9 +90,9 @@ const Carusel = ({ image, id }: Props) => {
             onDragEnd={handleDragEnd}
           />
         </Wrapper>
-        <Arrow arrow={RightArrow} onClick={(e) => handleNextImage(e)} />
-      </AnimatePresence>
-    </Root>
+        {!isMobileView && <Arrow arrow={RightArrow} onClick={(e) => handleNextImage(e)} />}
+      </Root>
+    </AnimatePresence>
   );
 };
 
