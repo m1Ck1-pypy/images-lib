@@ -2,11 +2,6 @@ import { Box } from '@gravity-ui/uikit';
 import { styled } from 'styled-components';
 
 export const Actions = styled(Box)`
-  position: absolute;
-  bottom: -5rem;
-  right: 50%;
-
-  transform: translateX(50%);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -7,7 +7,7 @@ export const Container = styled(Box)`
   width: 50%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.02);
-  padding: 2rem;
+  text-align: center;
 
   overflow: auto;
   &::-webkit-scrollbar {
@@ -16,4 +16,8 @@ export const Container = styled(Box)`
 
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;

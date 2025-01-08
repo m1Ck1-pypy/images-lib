@@ -8,7 +8,7 @@ type Props = {
 export const Wrapper = styled(Box)<Props>`
   position: relative;
   display: flex;
-  width: 30%;
+  width: 50%;
   height: 80%;
 
   border-radius: 1rem;
@@ -29,4 +29,9 @@ export const Wrapper = styled(Box)<Props>`
         border: 2px dashed rgba(255, 255, 255, 0.75);
       }
     `};
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: 60%;
+  }
 `;

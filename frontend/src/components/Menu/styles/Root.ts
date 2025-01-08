@@ -7,7 +7,7 @@ type Props = {
 
 export const Root = styled(Box)<Props>`
   position: absolute;
-  bottom: 3rem;
+  bottom: 5rem;
   left: 3rem;
   display: flex;
   align-items: center;
@@ -19,4 +19,8 @@ export const Root = styled(Box)<Props>`
 
   width: ${({ isOpen }) => (isOpen ? '10rem' : '3.8rem')};
   transition: width 0.25s ease-in-out;
+
+  @media (max-width: 768px) {
+    left: 1rem;
+  }
 `;
