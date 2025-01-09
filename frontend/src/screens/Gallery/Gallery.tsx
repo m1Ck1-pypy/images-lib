@@ -12,6 +12,7 @@ import { Root } from './styles/Root';
 const Gallery = () => {
   const activeIndex = useGalleryStore((state) => state.activeImageIndex);
   const imageArray = useGalleryStore((state) => state.allImages);
+  console.log('🚀 ~ imageArray:', imageArray);
   const setActiveImageIndex = useGalleryStore((state) => state.setActiveImageIndex);
   const resetIndex = useGalleryStore((state) => state.resetIndex);
   const fetchAllImages = useGalleryStore((state) => state.fetchAllImages);
