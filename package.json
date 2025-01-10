@@ -5,8 +5,9 @@
   "proxy": "localhost:3000",
   "scripts": {
     "dev:frontend": "cd frontend && bun run dev",
-    "dev:backend": "cd backend && bun start",
-    "build:frontend": "cd frontend && bun run build",
+    "dev:backend": "cd backend && bun run dev",
+    "build:frontend": "cd frontend && bun build",
+    "build:backend": "cd backend && bun run build",
     "lint": "bun run lint:frontend && bun run lint:backend",
     "lint:frontend": "cd frontend && bun lint",
     "lint:backend": "cd backend && bun lint"
@@ -21,7 +22,7 @@
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
-    "axios": "^1.7.9",
+    "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
@@ -32,9 +33,9 @@
     "framer-motion": "^11.15.0",
     "prettier": "^3.4.2",
     "react-dropzone": "^14.3.5",
+    "typescript-eslint": "8.19.1",
     "uuid": "^11.0.4",
-    "vite": "^6.0.6",
-    "typescript-eslint": "8.19.1"
+    "vite": "^6.0.6"
   },
   "simple-git-hooks": {
     "pre-commit": "bun lint"

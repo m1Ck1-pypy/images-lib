@@ -1,4 +1,6 @@
-import Bun, { randomUUIDv7 } from 'bun';
+import Bun from 'bun';
+
+import { getPublicFileUrl, supabase } from '../database';
 
 const PORT = 3000;
 
@@ -9,30 +11,36 @@ interface Post {
 }
 
 let posts: Post[] = [];
-const images: { id: string; image: string }[] = [];
+// const images: { id: string; image: string }[] = [];
 
-const CORS_HEADERS: ResponseInit = {
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  },
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-const handleGetAllPosts = () => {
-  return new Response(JSON.stringify(images), { status: 200, headers: CORS_HEADERS.headers });
+const handleGetAllPosts = async () => {
+  const list = (await supabase.storage.from('content').list()).data;
+
+  const notEmptyFilter = list?.filter((item) => item.name !== '.emptyFolderPlaceholder');
+  const newImages = notEmptyFilter?.map((item) => ({
+    id: item.id,
+    image: getPublicFileUrl(item.name),
+  }));
+
+  return new Response(JSON.stringify(newImages), { status: 200, headers: CORS_HEADERS });
 };
 
-const handleGetPost = (id: number) => {
+const handleGetPost = async (id: number) => {
   const post = posts.find((post) => post.id === id);
 
   if (!post) {
-    return new Response('Post Not Found', { status: 404, headers: CORS_HEADERS.headers });
+    return new Response('Post Not Found', { status: 404, headers: CORS_HEADERS });
   }
 
   return new Response(JSON.stringify(post), {
     status: 200,
-    headers: CORS_HEADERS.headers,
+    headers: CORS_HEADERS,
   });
 };
 
@@ -42,20 +50,25 @@ const handleCreatePost = async (req: Request) => {
   const file = formdata.get('file') as File;
 
   if (!formdata.has('file')) {
-    return new Response('Image Not Found', { status: 404, headers: CORS_HEADERS.headers });
+    return new Response('Image Not Found', { status: 404, headers: CORS_HEADERS });
   }
 
   const buffer = await file!.arrayBuffer();
-  const blob = new Blob([buffer], { type: `${file!.type}` });
+  const blob = new Blob([buffer], { type: file!.type });
 
-  const arrayBuffer = await blob.arrayBuffer();
+  // const arrayBuffer = await blob.arrayBuffer();
+  // const base64 = Buffer.from(arrayBuffer).toString('base64');
+  // images.unshift({ id: randomUUIDv7(), image: `data:image/png;base64,${base64}` });
 
-  const base64 = Buffer.from(arrayBuffer).toString('base64');
-  images.unshift({ id: randomUUIDv7(), image: `data:image/png;base64,${base64}` });
+  const { error } = await supabase.storage.from('content').upload(file!.name, blob);
 
-  const responce = new Response(JSON.stringify(images), {
+  if (error) {
+    return new Response(error.message, { status: 400, headers: CORS_HEADERS });
+  }
+
+  const responce = new Response('success', {
     status: 201,
-    headers: { ...CORS_HEADERS.headers, 'Content-Type': `${file!.type}` },
+    headers: { ...CORS_HEADERS, 'Content-Type': `${file!.type}` },
   });
 
   return responce;
@@ -65,14 +78,14 @@ const handleUpdatePost = (id: number, { title, content }: Post) => {
   const post = posts.findIndex((post) => post.id === id);
 
   if (post === -1) {
-    return new Response('Post Not Found', { status: 404, headers: CORS_HEADERS.headers });
+    return new Response('Post Not Found', { status: 404, headers: CORS_HEADERS });
   }
 
   posts[post] = { ...posts[post], title, content };
 
   return new Response(JSON.stringify(post), {
     status: 200,
-    headers: CORS_HEADERS.headers,
+    headers: CORS_HEADERS,
   });
 };
 
@@ -84,7 +97,7 @@ const handleDeletePost = (id: number) => {
   }
 
   posts = posts.filter((post) => post.id !== id);
-  return new Response('Post Deleted', { status: 200, headers: CORS_HEADERS.headers });
+  return new Response('Post Deleted', { status: 200, headers: CORS_HEADERS });
 };
 
 const server = Bun.serve({
