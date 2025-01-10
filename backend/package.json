@@ -3,12 +3,15 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
+    "dev": "concurrently -P \"bun dev:services >nul 2>nul\" \"bun start\"",
     "start": "bun run --watch ./src/index.ts",
-    "build": "bun run ./src/index.ts",
-    "lint": "eslint --fix ."
+    "build": "bun build --target=bun --minify ./src/index.ts --outdir ./dist/index.js",
+    "lint": "eslint --fix .",
+    "dev:services": "docker compose up --build"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "concurrently": "^9.1.2"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
